@@ -4,6 +4,7 @@
 		"github.copilot",
 		"ms-dotnettools.csharp",
 		"ms-azuretools.vscode-azurestaticwebapps",
-		"ms-dotnettools.blazorwasm-companion"
+		"ms-dotnettools.blazorwasm-companion",
+		"github.vscode-pull-request-github"
   ]
 }
