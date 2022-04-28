@@ -6,7 +6,7 @@
         "run": "dotnet watch run --project Client.csproj",
         "appLocation": "src/Client",
         "swaConfigLocation": "./src",
-        "open":"true"
+        "open":"false"
       }
     }
   }
