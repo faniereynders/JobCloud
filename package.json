@@ -1,0 +1,21 @@
+{
+  "name": "jobcloud",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "swa start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faniereynders/JobCloud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faniereynders/JobCloud/issues"
+  },
+  "homepage": "https://github.com/faniereynders/JobCloud#readme",
+  "devDependencies": {
+    "@azure/static-web-apps-cli": "^0.8.3"
+  }
+}

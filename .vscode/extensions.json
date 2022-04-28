@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "ms-vscode.azurecli",
+		"github.copilot",
+		"ms-dotnettools.csharp",
+		"ms-azuretools.vscode-azurestaticwebapps",
+		"ms-dotnettools.blazorwasm-companion"
+  ]
+}
