@@ -12,7 +12,7 @@
         <MudSpacer />
         <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"  Edge="Edge.End" />
     </MudAppBar>
-    <MudDrawer @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Temporary" OpenMiniOnHover="true" Elevation="2">
+    <MudDrawer ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" Elevation="2">
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
