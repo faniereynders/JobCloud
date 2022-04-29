@@ -1,18 +1,19 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
  
-    <MudAppBar Color="Color.Primary" Fixed="true" Elevation="1">
+    <MudAppBar Dense="true" Color="Color.Transparent" Fixed="true" Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
             OnClick="@((e) => DrawerToggle())" /> JobCloud
         <MudSpacer />
+        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4"  Label="Toggle Light/Dark Mode"/>
         <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"  Edge="Edge.End" />
     </MudAppBar>
-    <MudDrawer ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" Elevation="2">
+    <MudDrawer ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" Elevation="0">
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
@@ -23,7 +24,9 @@
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
+    bool _drawerOpen = false;
+    private MudTheme _theme = new();
+    private bool _isDarkMode;
 
     void DrawerToggle()
     {
