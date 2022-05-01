@@ -1,0 +1,26 @@
+﻿@page "/jobs"
+
+<PageTitle>Jobs</PageTitle>
+
+    <MudToolBar DisableGutters="true" Dense="true">
+        <MudIconButton Icon="@Icons.Material.Outlined.Add" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Edit" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Remove" Color="Color.Inherit" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Settings" Color="Color.Inherit" />
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Outlined.Notifications" />
+        <MudIconButton Icon="@Icons.Material.Outlined.PushPin" />
+        <MudIconButton Icon="@Icons.Material.Outlined.PeopleAlt" />
+        <MudIconButton Icon="@Icons.Material.Outlined.MoreVert" Color="Color.Inherit" />
+    </MudToolBar>
+<MudTabs Elevation="1" Rounded="true">
+    <MudTabPanel Text="Api" Icon="@Icons.Material.Filled.Api">
+        <MudText>Content One</MudText>
+    </MudTabPanel>
+    <MudTabPanel Icon="@Icons.Material.Filled.Build">
+        <MudText>Content One</MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="Bug Report" Icon="@Icons.Material.Filled.BugReport">
+        <MudText>Content One</MudText>
+    </MudTabPanel>
+</MudTabs>

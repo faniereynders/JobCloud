@@ -8,12 +8,13 @@
     }
   },
   "profiles": {
-    "JobCard.Client": {
+    "JobCloud.Client": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": false,
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:4280/",
       "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-      "applicationUrl": "https://localhost:7284;http://localhost:5247",
+      "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

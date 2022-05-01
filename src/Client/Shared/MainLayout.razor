@@ -5,31 +5,44 @@
 <MudSnackbarProvider />
 
 <MudLayout>
- 
-    <MudAppBar Dense="true" Color="Color.Transparent" Fixed="true" Elevation="0">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start"
-            OnClick="@((e) => DrawerToggle())" /> JobCloud
+
+    <MudAppBar  Dense="false" Color="Color.Transparent" Fixed="true" Elevation="0">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                
         <MudSpacer />
-        <MudSwitch @bind-Checked="@_isDarkMode" Color="Color.Primary" Class="ma-4"  Label="Toggle Light/Dark Mode"/>
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit"  Edge="Edge.End" />
+        <MudTooltip Duration="1000" Text="@(_isDarkMode ? "Switch to Light Theme" : "Switch to Dark Theme")">
+            <MudIconButton Icon="@(_isDarkMode ? @Icons.Rounded.LightMode : @Icons.Material.Outlined.DarkMode)" Color="Color.Inherit" OnClick="@ToggleDarkMode" />
+        </MudTooltip>
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Edge="Edge.End" />
     </MudAppBar>
-    <MudDrawer ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" Elevation="0">
-        <NavMenu />
+    <MudDrawer ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="false" Elevation="@(_drawerOpen ? 1 : 0)">
+        
+            <NavMenu />
+       
+        
+       
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Medium">
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
             @Body
         </MudContainer>
     </MudMainContent>
 </MudLayout>
 
 @code {
-    bool _drawerOpen = false;
+    bool _drawerOpen = true;
     private MudTheme _theme = new();
     private bool _isDarkMode;
-
+    private NavMenu _navMenu;
+ 
     void DrawerToggle()
     {
+        
         _drawerOpen = !_drawerOpen;
+    }
+
+    void ToggleDarkMode()
+    {
+        _isDarkMode = !_isDarkMode;
     }
 }
