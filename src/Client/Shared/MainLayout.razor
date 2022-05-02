@@ -4,26 +4,27 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
+<MudLayout >
 
-    <MudAppBar  Dense="false" Color="Color.Transparent" Fixed="true" Elevation="0">
+    <MudAppBar  DisableGutters="false"  Dense="false" Color="Color.Transparent" Fixed="true" Elevation="0">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-                
-        <MudSpacer />
+              
+        <MudSpacer/>
         <MudTooltip Duration="1000" Text="@(_isDarkMode ? "Switch to Light Theme" : "Switch to Dark Theme")">
             <MudIconButton Icon="@(_isDarkMode ? @Icons.Rounded.LightMode : @Icons.Material.Outlined.DarkMode)" Color="Color.Inherit" OnClick="@ToggleDarkMode" />
         </MudTooltip>
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Edge="Edge.End" />
+        <MudIconButton Style="padding:0px"><MudAvatar>F</MudAvatar></MudIconButton>
     </MudAppBar>
-    <MudDrawer ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="false" Elevation="@(_drawerOpen ? 1 : 0)">
-        
+    <MudDrawer  ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="false" Elevation="@(_drawerOpen ? 1 : 0)">
+       
+  
             <NavMenu />
        
         
        
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+        <MudContainer  MaxWidth="MaxWidth.ExtraExtraLarge">
             @Body
         </MudContainer>
     </MudMainContent>
@@ -33,12 +34,13 @@
     bool _drawerOpen = true;
     private MudTheme _theme = new();
     private bool _isDarkMode;
-    private NavMenu _navMenu;
- 
+   
+
     void DrawerToggle()
     {
-        
+
         _drawerOpen = !_drawerOpen;
+      
     }
 
     void ToggleDarkMode()
