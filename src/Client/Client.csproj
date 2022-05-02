@@ -14,4 +14,10 @@
     <PackageReference Include="MudBlazor" Version="6.0.10-dev.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Pages\Customers\Index.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>

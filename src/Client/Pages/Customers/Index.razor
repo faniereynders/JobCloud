@@ -2,3 +2,38 @@
 
 <PageTitle>Customers</PageTitle>
 
+
+    <MudToolBar Class="mb-6" DisableGutters="true" Dense="true">
+        <MudButton Class="mr-1" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" Icon="@Icons.Material.Outlined.Add" Variant="Variant.Filled" Color="Color.Primary">New customer</MudButton>
+        <MudIconButton  Icon="@Icons.Material.Outlined.Refresh" />
+        
+    </MudToolBar>
+
+<MudTable Height="100%" MultiSelection="true" Items="@Items.Take(4)"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Account number</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Telephone</MudTh>
+        <MudTh>Mobile</MudTh>
+        <MudTh>E-mail</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Account number">@context.AccountNumber</MudTd>
+        <MudTd DataLabel="Name">@context.CustomerName</MudTd>
+        <MudTd DataLabel="Telephone">@context.Telephone</MudTd>
+        <MudTd DataLabel="Mobile" HideSmall="_hidePosition">@context.Mobile</MudTd>
+        <MudTd DataLabel="E-mail">@context.EMail</MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    private bool _hidePosition;
+    private bool _loading;
+    private IEnumerable<CustomerListItem> Items = new List<CustomerListItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Items = new List<CustomerListItem>();
+    }
+
+}

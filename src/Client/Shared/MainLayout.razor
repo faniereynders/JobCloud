@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme" />
+<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -15,7 +15,7 @@
         </MudTooltip>
         <MudIconButton Style="padding:0px"><MudAvatar>F</MudAvatar></MudIconButton>
     </MudAppBar>
-    <MudDrawer  ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="false" Elevation="@(_drawerOpen ? 1 : 0)">
+    <MudDrawer Color="Color.Transparent"  ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="false" Elevation="@(_drawerOpen ? 1 : 0)">
        
   
             <NavMenu />
@@ -34,7 +34,16 @@
     bool _drawerOpen = true;
     private MudTheme _theme = new();
     private bool _isDarkMode;
+    private MudThemeProvider _mudThemeProvider;
    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+            StateHasChanged();
+        }
+    }
 
     void DrawerToggle()
     {
