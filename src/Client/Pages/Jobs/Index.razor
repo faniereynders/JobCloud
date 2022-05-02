@@ -4,18 +4,17 @@
 
 
     <MudToolBar DisableGutters="true" Dense="true">
-        <MudButton StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" Icon="@Icons.Material.Outlined.Add" Variant="Variant.Filled" Color="Color.Primary">Create job</MudButton>
+        <MudButton Class="mr-1" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" Icon="@Icons.Material.Outlined.Add" Variant="Variant.Filled" Color="Color.Primary">Create job</MudButton>
         <MudIconButton  Icon="@Icons.Material.Outlined.Refresh" />
         
     </MudToolBar>
-<MudTabs Elevation="1" Rounded="true">
-    <MudTabPanel Text="Api" Icon="@Icons.Material.Filled.Api">
-        <MudText>Content One</MudText>
+
+<MudTabs Class="mt-6" Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+    <MudTabPanel Text="Pending">
+        <Jobs/>
     </MudTabPanel>
-    <MudTabPanel Icon="@Icons.Material.Filled.Build">
-        <MudText>Content One</MudText>
+    <MudTabPanel Text="Completed">
+        <MudText>Content Two</MudText>
     </MudTabPanel>
-    <MudTabPanel Text="Bug Report" Icon="@Icons.Material.Filled.BugReport">
-        <MudText>Content One</MudText>
-    </MudTabPanel>
+    
 </MudTabs>

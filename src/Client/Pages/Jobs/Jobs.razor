@@ -1,0 +1,33 @@
+﻿@using System.Net.Http.Json
+@inject HttpClient httpClient
+
+
+
+<MudTable Height="100%" MultiSelection="true" Items="@Items.Take(4)"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Job number</MudTh>
+        <MudTh>Date</MudTh>
+        <MudTh>Customer</MudTh>
+        <MudTh>Team</MudTh>
+        <MudTh>Logged by</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Job number">@context.JobNumber</MudTd>
+        <MudTd DataLabel="Date">@context.Date.ToShortDateString()</MudTd>
+        <MudTd DataLabel="Customer">@context.Customer</MudTd>
+        <MudTd DataLabel="Team" HideSmall="_hidePosition">@context.Team</MudTd>
+        <MudTd DataLabel="Logged by">@context.LoggedBy</MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    private bool _hidePosition;
+    private bool _loading;
+    private IEnumerable<JobListItem> Items = new List<JobListItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Items = new List<JobListItem>();
+    }
+
+}

@@ -8,4 +8,8 @@
     <AssemblyName>JobCloud.Shared</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
