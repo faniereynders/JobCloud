@@ -1,7 +1,7 @@
 {
     "configurations": {
       "app": {
-        "context": "https://localhost:7284",
+        "context": "http://localhost:5000",
         "apiLocation": "src/Api",
         "run": "dotnet watch run --project Client.csproj",
         "appLocation": "src/Client",

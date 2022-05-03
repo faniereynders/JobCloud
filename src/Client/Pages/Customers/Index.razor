@@ -1,16 +1,19 @@
 ﻿@page "/customers"
+@using JobCloud.Shared.Models
+@inject HttpClient client
 
 <PageTitle>Customers</PageTitle>
 
 
     <MudToolBar Class="mb-6" DisableGutters="true" Dense="true">
         <MudButton Class="mr-1" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" Icon="@Icons.Material.Outlined.Add" Variant="Variant.Filled" Color="Color.Primary">New customer</MudButton>
-        <MudIconButton  Icon="@Icons.Material.Outlined.Refresh" />
+        <MudIconButton  Icon="@Icons.Material.Outlined.Refresh" @onclick="GetCustomers" />
         
     </MudToolBar>
 
-<MudTable Height="100%" MultiSelection="true" Items="@Items.Take(4)"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+<MudTable Loading="@_loading" @bind-SelectedItems="selectedItems1"  SortLabel="Sort By" MultiSelection="true" Items="@Items"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
     <HeaderContent>
+        <MudTh>Type</MudTh>
         <MudTh>Account number</MudTh>
         <MudTh>Name</MudTh>
         <MudTh>Telephone</MudTh>
@@ -18,6 +21,7 @@
         <MudTh>E-mail</MudTh>
     </HeaderContent>
     <RowTemplate>
+        <MudTd DataLabel="Type"><MudIcon Icon="@(@context.Type == CustomerType.CompanyCustomer ? @Icons.Material.Filled.Business : @Icons.Material.Filled.Person)" Title="Favorite" /></MudTd>
         <MudTd DataLabel="Account number">@context.AccountNumber</MudTd>
         <MudTd DataLabel="Name">@context.CustomerName</MudTd>
         <MudTd DataLabel="Telephone">@context.Telephone</MudTd>
@@ -25,15 +29,39 @@
         <MudTd DataLabel="E-mail">@context.EMail</MudTd>
     </RowTemplate>
 </MudTable>
+<MudText Inline="true">Selected items: @(selectedItems1==null ? "" : string.Join(", ", selectedItems1.Select(x=>x.CustomerName)))</MudText>
+
 
 @code {
     private bool _hidePosition;
     private bool _loading;
     private IEnumerable<CustomerListItem> Items = new List<CustomerListItem>();
+    private HashSet<CustomerListItem> selectedItems1 = new HashSet<CustomerListItem>();
+
 
     protected override async Task OnInitializedAsync()
     {
-        Items = new List<CustomerListItem>();
+        await GetCustomers();
+    }
+
+
+
+    private async Task GetCustomers()
+    {
+        _loading = true;
+        var result = await client.GetFromJsonAsync<CustomerListDto>("api/customers");
+
+        Items = result.Items.Select(i => new CustomerListItem
+            {
+                Type = i.Type,
+                AccountNumber = i.AccountNumber,
+                CustomerName = i.Name,
+                Telephone = i.Telephone1,
+                Mobile = i.Mobile,
+                EMail = i.EMail
+            }).ToList();
+
+        _loading = false;
     }
 
 }

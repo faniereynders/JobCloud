@@ -1,1 +1,1 @@
-swa start http://localhost:5000 --devserver-timeout=6000000
+swa start http://localhost:5000 --api-location=src/Api --devserver-timeout=6000000
