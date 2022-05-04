@@ -11,22 +11,19 @@
         
     </MudToolBar>
 
-<MudTable Loading="@_loading" @bind-SelectedItems="selectedItems1"  SortLabel="Sort By" MultiSelection="true" Items="@Items"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+<MudTable Onr Loading="@_loading" @bind-SelectedItems="selectedItems1"  SortLabel="Sort By" MultiSelection="true" Items="@Items"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
     <HeaderContent>
-        <MudTh>Type</MudTh>
-        <MudTh>Account number</MudTh>
+        <MudTh/>
         <MudTh>Name</MudTh>
-        <MudTh>Telephone</MudTh>
-        <MudTh>Mobile</MudTh>
-        <MudTh>E-mail</MudTh>
+        <MudTh>Account number</MudTh>
     </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Type"><MudIcon Icon="@(@context.Type == CustomerType.CompanyCustomer ? @Icons.Material.Filled.Business : @Icons.Material.Filled.Person)" Title="Favorite" /></MudTd>
-        <MudTd DataLabel="Account number">@context.AccountNumber</MudTd>
-        <MudTd DataLabel="Name">@context.CustomerName</MudTd>
-        <MudTd DataLabel="Telephone">@context.Telephone</MudTd>
-        <MudTd DataLabel="Mobile" HideSmall="_hidePosition">@context.Mobile</MudTd>
-        <MudTd DataLabel="E-mail">@context.EMail</MudTd>
+    <RowTemplate >
+       <MudTh><MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.Add"></MudIconButton></MudTh>
+        <MudTd DataLabel="Name" >
+            <MudIcon Class="mr-2" Style="float:left" Size="Size.Small" Icon="@(@context.Type == CustomerType.CompanyCustomer ? @Icons.Material.Filled.Business : @Icons.Material.Filled.Person)"  />
+            <MudText>@context.CustomerName</MudText>
+        </MudTd>
+         <MudTd DataLabel="Account number">@context.AccountNumber</MudTd>
     </RowTemplate>
 </MudTable>
 <MudText Inline="true">Selected items: @(selectedItems1==null ? "" : string.Join(", ", selectedItems1.Select(x=>x.CustomerName)))</MudText>
