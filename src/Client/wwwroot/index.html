@@ -24,6 +24,20 @@
     </div>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+
+        function addThemeEventListener(dotNetObjectRef) {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                const isDarkMode = event.matches;
+               
+               
+                dotNetObjectRef.invokeMethodAsync('OnThemeChange', isDarkMode)
+            });
+            
+        }
+
+    
+    </script>
 </body>
 
 </html>

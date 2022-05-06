@@ -2,6 +2,18 @@
 @using JobCloud.Shared.Models
 @inject HttpClient client
 
+
+<style>
+    .table-toolbar {
+        min-width: 100px;
+    }
+    tr.mud-table-row:hover .show{
+        visibility:visible;
+    }
+    tr.mud-table-row .show{
+        visibility: hidden;
+    }
+</style>
 <PageTitle>Customers</PageTitle>
 
 
@@ -11,20 +23,25 @@
         
     </MudToolBar>
 
-<MudTable Onr Loading="@_loading" @bind-SelectedItems="selectedItems1"  SortLabel="Sort By" MultiSelection="true" Items="@Items"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+<MudTable Loading="@_loading" @bind-SelectedItems="selectedItems1"  SortLabel="Sort By" MultiSelection="true" Items="@Items"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
     <HeaderContent>
-        <MudTh/>
         <MudTh>Name</MudTh>
         <MudTh>Account number</MudTh>
+        <MudTh/>
     </HeaderContent>
     <RowTemplate >
-       <MudTh><MudIconButton Size="Size.Small" Icon="@Icons.Material.Filled.Add"></MudIconButton></MudTh>
         <MudTd DataLabel="Name" >
             <MudIcon Class="mr-2" Style="float:left" Size="Size.Small" Icon="@(@context.Type == CustomerType.CompanyCustomer ? @Icons.Material.Filled.Business : @Icons.Material.Filled.Person)"  />
             <MudText>@context.CustomerName</MudText>
         </MudTd>
          <MudTd DataLabel="Account number">@context.AccountNumber</MudTd>
-    </RowTemplate>
+       <MudTh Class="pa-0">
+            
+           <MudIconButton Class="mud-table-cell-checkbox object-right show"  Icon="@Icons.Material.Filled.Add"></MudIconButton>
+             
+       </MudTh>
+ 
+       </RowTemplate>
 </MudTable>
 <MudText Inline="true">Selected items: @(selectedItems1==null ? "" : string.Join(", ", selectedItems1.Select(x=>x.CustomerName)))</MudText>
 

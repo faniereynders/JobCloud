@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime JS
 
 <MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_theme" />
 <MudDialogProvider />
@@ -13,7 +14,7 @@
         <MudTooltip Duration="1000" Text="@(_isDarkMode ? "Switch to Light Theme" : "Switch to Dark Theme")">
             <MudIconButton Icon="@(_isDarkMode ? @Icons.Rounded.LightMode : @Icons.Material.Outlined.DarkMode)" Color="Color.Inherit" OnClick="@ToggleDarkMode" />
         </MudTooltip>
-        <MudIconButton Style="padding:0px"><MudAvatar>F</MudAvatar></MudIconButton>
+        <MudIconButton Color="Color.Inherit" Class="pa-0"><MudAvatar   Color="@(_isDarkMode ? @Color.Dark : @Color.Default)" Variant="@(_isDarkMode ? @Variant.Filled : @Variant.Outlined)">F</MudAvatar></MudIconButton>
     </MudAppBar>
     <MudDrawer Color="Color.Transparent"  ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.Sm" @bind-Open="@_drawerOpen" Variant="@DrawerVariant.Mini" OpenMiniOnHover="false" Elevation="@(_drawerOpen ? 1 : 0)">
        
@@ -30,19 +31,33 @@
     </MudMainContent>
 </MudLayout>
 
+
+
 @code {
     bool _drawerOpen = true;
     private MudTheme _theme = new();
     private bool _isDarkMode;
     private MudThemeProvider _mudThemeProvider;
-   
+    private DotNetObjectReference<MainLayout>? dotNetHelper;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+
+            dotNetHelper = DotNetObjectReference.Create(this);
+            await JS.InvokeAsync<string>("addThemeEventListener", dotNetHelper);
+
             StateHasChanged();
         }
+    }
+
+
+    [JSInvokable]
+    public void OnThemeChange(bool isDarkMode)
+    {
+        _mudThemeProvider.IsDarkMode = isDarkMode;
     }
 
     void DrawerToggle()
