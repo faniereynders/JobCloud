@@ -19,10 +19,11 @@
 
     <MudToolBar Class="mb-6" DisableGutters="true" Dense="true">
         <MudButton Class="mr-1" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" Icon="@Icons.Material.Outlined.Add" Variant="Variant.Filled" Color="Color.Primary">New customer</MudButton>
+        <MudSpacer/>
         <MudIconButton  Icon="@Icons.Material.Outlined.Refresh" @onclick="GetCustomers" />
         
     </MudToolBar>
-
+    
 <MudTable Loading="@_loading" @bind-SelectedItems="selectedItems1"  SortLabel="Sort By" MultiSelection="true" Items="@Items"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
     <HeaderContent>
         <MudTh>Name</MudTh>
@@ -37,7 +38,8 @@
          <MudTd DataLabel="Account number">@context.AccountNumber</MudTd>
        <MudTh Class="pa-0">
             
-           <MudIconButton Class="mud-table-cell-checkbox object-right show"  Icon="@Icons.Material.Filled.Add"></MudIconButton>
+           <MudIconButton Class="mud-table-cell-checkbox show"  Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+           <MudIconButton Class="mud-table-cell-checkbox show"  Icon="@Icons.Material.Filled.Delete"></MudIconButton>
              
        </MudTh>
  
