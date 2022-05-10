@@ -1,0 +1,65 @@
+﻿@page "/customers/new"
+@page "/customers/{id:guid}"
+@using JobCloud.Shared.Models
+
+
+<EditForm Model="@model">
+    <DataAnnotationsValidator />
+
+
+    <MudCard>
+        <MudCardContent>
+            <MudSelect T="CustomerType" @bind-Value="model.Type" Label="Type" AnchorOrigin="Origin.BottomCenter">
+                <MudSelectItem Value="CustomerType.IndividualCustomer">Individual</MudSelectItem>
+                <MudSelectItem Value="CustomerType.CompanyCustomer">Company</MudSelectItem>
+            </MudSelect>
+            <MudTextField Label="Name" @bind-Value="model.Name" For="@(() => model.Name)" />
+            <MudTextField Label="Account number" @bind-Value="model.AccountNumber" For="@(() => model.AccountNumber)" />
+            <MudTextField Label="ID Number" @bind-Value="model.IndividualIDNumber" For="@(() => model.IndividualIDNumber)" />
+            <MudTextField Label="Registration Number" @bind-Value="model.CompanyRegistrationNumber" For="@(() => model.CompanyRegistrationNumber)" />
+
+
+            @foreach (var director in model.CompanyDirectors)
+            {
+                <MudTextField Label="@(director.Key)" For="@(() => director.Value)" />
+            }
+
+            <MudTextField Label="Manager" @bind-Value="model.CompanyManagerName" For="@(() => model.CompanyManagerName)" />
+            <MudTextField Label="Postal Address" @bind-Value="model.PostalAddress" For="@(() => model.PostalAddress)" />
+            <MudTextField Label="Residentual Address" @bind-Value="model.ResidentualAddress" For="@(() => model.ResidentualAddress)" />
+            @foreach (var contact in model.ContactDetails)
+            {
+                <MudTextField Label="@(contact.Key)" For="@(() => contact.Value)" />
+            }
+            <MudTextField Label="E-Mail" For="@(() => model.Email)" />
+
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+        </MudCardActions>
+    </MudCard>
+
+
+</EditForm>
+
+@code {
+    CustomerForm model = new();
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        model.ContactDetails.Add(new KeyValuePair<string, string>("Telephone 1", String.Empty));
+        model.ContactDetails.Add(new KeyValuePair<string, string>("Telephone 2", String.Empty));
+        model.ContactDetails.Add(new KeyValuePair<string, string>("Mobile", String.Empty));
+        model.ContactDetails.Add(new KeyValuePair<string, string>("Fax", String.Empty));
+
+        for (int i = 1; i < 5; i++)
+        {
+            model.CompanyDirectors.Add(new KeyValuePair<string, string>($"Director {i}", String.Empty));
+
+        }
+        base.OnInitialized();
+    }
+}

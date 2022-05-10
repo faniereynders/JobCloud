@@ -1,7 +1,7 @@
 ﻿@page "/customers"
 @using JobCloud.Shared.Models
 @inject HttpClient client
-
+@inject NavigationManager NavigationManager
 
 <style>
     .table-toolbar {
@@ -27,7 +27,7 @@
 
 
 <MudToolBar Class="mb-6" DisableGutters="true" Dense="true">
-    <MudButton Class="mr-1" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" Icon="@Icons.Material.Outlined.Add" Variant="Variant.Filled" Color="Color.Primary">New customer</MudButton>
+    <MudButton Class="mr-1" Href="/customers/new" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" Icon="@Icons.Material.Outlined.Add" Variant="Variant.Filled" Color="Color.Primary">New customer</MudButton>
     <MudIconButton Icon="@Icons.Material.Outlined.Refresh" @onclick="GetCustomers" />
     <MudSpacer />
 
