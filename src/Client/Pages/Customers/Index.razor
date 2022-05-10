@@ -7,43 +7,57 @@
     .table-toolbar {
         min-width: 100px;
     }
-    tr.mud-table-row:hover .show{
-        visibility:visible;
+
+    tr.mud-table-row:hover .show {
+        visibility: visible;
     }
-    tr.mud-table-row .show{
+
+    tr.mud-table-row .show {
         visibility: hidden;
+    }
+
+    .mud-input>input.mud-input-root-outlined, div.mud-input-slot.mud-input-root-outlined {
+        padding-top: 12px;
+        padding-right: 22px;
+        padding-bottom: 12px;
+        padding-left: 22px;
     }
 </style>
 <PageTitle>Customers</PageTitle>
 
 
-    <MudToolBar Class="mb-6" DisableGutters="true" Dense="true">
-        <MudButton Class="mr-1" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" Icon="@Icons.Material.Outlined.Add" Variant="Variant.Filled" Color="Color.Primary">New customer</MudButton>
-        <MudSpacer/>
-        <MudIconButton  Icon="@Icons.Material.Outlined.Refresh" @onclick="GetCustomers" />
-        
-    </MudToolBar>
-    
-<MudTable Loading="@_loading" @bind-SelectedItems="selectedItems1"  SortLabel="Sort By" MultiSelection="true" Items="@Items"  Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
+<MudToolBar Class="mb-6" DisableGutters="true" Dense="true">
+    <MudButton Class="mr-1" StartIcon="@Icons.Material.Filled.Add" Size="Size.Large" Icon="@Icons.Material.Outlined.Add" Variant="Variant.Filled" Color="Color.Primary">New customer</MudButton>
+    <MudIconButton Icon="@Icons.Material.Outlined.Refresh" @onclick="GetCustomers" />
+    <MudSpacer />
+
+    <MudAutocomplete  Class="search" Dense="true" AutoFocus="true" Placeholder="Search" SearchFunc="Search" Variant="Variant.Outlined"  Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search">
+        <ItemTemplate Context="result">
+            <MudText>@result.CustomerName</MudText> <MudText Typo="Typo.body2">@result.AccountNumber</MudText>
+        </ItemTemplate>
+    </MudAutocomplete>
+</MudToolBar>
+
+<MudTable Loading="@_loading" @bind-SelectedItems="selectedItems1" SortLabel="Sort By" MultiSelection="true" Items="@Items" Elevation="0" Hover="true" Breakpoint="Breakpoint.Sm" LoadingProgressColor="Color.Info">
     <HeaderContent>
         <MudTh>Name</MudTh>
         <MudTh>Account number</MudTh>
-        <MudTh/>
+        <MudTh />
     </HeaderContent>
-    <RowTemplate >
-        <MudTd DataLabel="Name" >
-            <MudIcon Class="mr-2" Style="float:left" Size="Size.Small" Icon="@(@context.Type == CustomerType.CompanyCustomer ? @Icons.Material.Filled.Business : @Icons.Material.Filled.Person)"  />
+    <RowTemplate>
+        <MudTd DataLabel="Name">
+            <MudIcon Class="mr-2" Style="float:left" Size="Size.Small" Icon="@(@context.Type == CustomerType.CompanyCustomer ? @Icons.Material.Filled.Business : @Icons.Material.Filled.Person)" />
             <MudText>@context.CustomerName</MudText>
         </MudTd>
-         <MudTd DataLabel="Account number">@context.AccountNumber</MudTd>
-       <MudTh Class="pa-0">
-            
-           <MudIconButton Class="mud-table-cell-checkbox show"  Icon="@Icons.Material.Filled.Edit"></MudIconButton>
-           <MudIconButton Class="mud-table-cell-checkbox show"  Icon="@Icons.Material.Filled.Delete"></MudIconButton>
-             
-       </MudTh>
- 
-       </RowTemplate>
+        <MudTd DataLabel="Account number">@context.AccountNumber</MudTd>
+        <MudTh Class="pa-0">
+
+            <MudIconButton Class="mud-table-cell-checkbox show" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+            <MudIconButton Class="mud-table-cell-checkbox show" Icon="@Icons.Material.Filled.Delete"></MudIconButton>
+
+        </MudTh>
+
+    </RowTemplate>
 </MudTable>
 <MudText Inline="true">Selected items: @(selectedItems1==null ? "" : string.Join(", ", selectedItems1.Select(x=>x.CustomerName)))</MudText>
 
@@ -60,24 +74,28 @@
         await GetCustomers();
     }
 
-
+    private Task<IEnumerable<CustomerSearchEntry>> Search(string text)
+    {
+        return Task.FromResult(Items.Where(x => x.CustomerName.ToLower().Contains(text.ToLower())).Select(x => new CustomerSearchEntry { CustomerName = x.CustomerName, AccountNumber = x.AccountNumber, Type = x.Type }));
+        
+    }
 
     private async Task GetCustomers()
     {
-        _loading = true;
-        var result = await client.GetFromJsonAsync<CustomerListDto>("api/customers");
+    _loading = true;
+    var result = await client.GetFromJsonAsync<CustomerListDto>("api/customers");
 
-        Items = result.Items.Select(i => new CustomerListItem
-            {
-                Type = i.Type,
-                AccountNumber = i.AccountNumber,
-                CustomerName = i.Name,
-                Telephone = i.Telephone1,
-                Mobile = i.Mobile,
-                EMail = i.EMail
-            }).ToList();
+    Items = result.Items.Select(i => new CustomerListItem
+        {
+            Type = i.Type,
+            AccountNumber = i.AccountNumber,
+            CustomerName = i.Name,
+            Telephone = i.Telephone1,
+            Mobile = i.Mobile,
+            EMail = i.EMail
+        }).ToList();
 
-        _loading = false;
+    _loading = false;
     }
 
 }
